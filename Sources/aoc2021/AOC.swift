@@ -1,10 +1,12 @@
+//
+//  AOC.swift
+//
+//
+//  Created by Antonin on 21/11/2021.
+//
+
 import ArgumentParser
 import Darwin
-
-enum AppResult {
-    case ok
-    case err(String)
-}
 
 @main
 struct App: ParsableCommand {
@@ -35,7 +37,12 @@ struct App: ParsableCommand {
             return
         }
         
-        if !(App.checkIfExerciseExists(exercise: exercise!)) {
+        guard let exerciseName = exercise else {
+            print("Please provide an exercise to run")
+            return
+        }
+        
+        if !(App.checkIfExerciseExists(exercise: exerciseName)) {
             print("The exercise does not exists")
             return
         }
@@ -44,7 +51,7 @@ struct App: ParsableCommand {
             return inputFile ?? "Inputs/\(exerciseName).txt"
         }
         
-        let file = getInputFile(exerciseName: exercise!, inputFile: inputFile)
+        let file = getInputFile(exerciseName: exerciseName, inputFile: inputFile)
         
         switch exercise {
             // TODO: Find a solution in order to register the name of the exercise *and* the exercise itself

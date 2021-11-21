@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  01.swift
 //  
 //
 //  Created by Antonin on 21/11/2021.
@@ -18,10 +18,11 @@ class Ex01: Exercise {
         }
     }
     
-    internal func part1(from: String) -> ExerciseResult<Int> {
+    internal func part1(from: String) -> Result<Int> {
         do {
-            switch try getInput(from: from, encodeFrom: toInt, ofType: nil) {
-            case .ok(let data):
+            let input: Result<[Int?]> = try getInput(from: from, encodeFrom: toInt, ofType: nil)
+            switch input {
+            case .ok(_):
                 // TODO: Process
                 return .ok(0)
             case .error(let err):
@@ -33,10 +34,11 @@ class Ex01: Exercise {
         }
     }
     
-    internal func part2(from: String) -> ExerciseResult<Int> {
+    internal func part2(from: String) -> Result<Int> {
         do {
-            switch try getInput(from: from, encodeFrom: toInt, ofType: nil) {
-            case .ok(let data):
+            let input: Result<[Int?]> = try getInput(from: from, encodeFrom: toInt, ofType: nil)
+            switch input {
+            case .ok(_):
                 // TODO: Process
                 return .ok(0)
             case .error(let err):
@@ -48,11 +50,11 @@ class Ex01: Exercise {
         }
     }
     
-    internal func part1(value: Int) -> ExerciseResult<Int> {
+    internal func part1(value: Int) -> Result<Int> {
         return .ok(0)
     }
     
-    internal func part2(value: Int) -> ExerciseResult<Int> {
+    internal func part2(value: Int) -> Result<Int> {
         return .ok(0)
     }
     
