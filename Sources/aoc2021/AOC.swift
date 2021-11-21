@@ -44,13 +44,15 @@ struct App: ParsableCommand {
             return inputFile ?? "Inputs/\(exerciseName).txt"
         }
         
+        let file = getInputFile(exerciseName: exercise!, inputFile: inputFile)
+        
         switch exercise {
             // TODO: Find a solution in order to register the name of the exercise *and* the exercise itself
         case "01":
-            print(Ex01.shared.part1(from: getInputFile(exerciseName: Ex01.shared.name, inputFile: inputFile)))
-            print(Ex01.shared.part2(from: getInputFile(exerciseName: Ex01.shared.name, inputFile: inputFile)))
+            print("Solution of part1: \(Ex01.shared.part1(from: file))")
+            print("Solution of part2: \(Ex01.shared.part2(from: file))")
         default:
-            print("Exercise not found")
+            print("Exercise not found, should not happen")
         }
         
         return
