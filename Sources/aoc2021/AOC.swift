@@ -6,7 +6,6 @@
 //
 
 import ArgumentParser
-import Darwin
 
 @main
 struct App: ParsableCommand {

@@ -83,7 +83,7 @@ class Exercises {
     }
 }
 
-func getInput<T>(from: String, encodeFrom: ((_ str: String) -> T), ofType: String?) throws -> Result<[T]> {
+func getInput<T>(from: String, encodeFrom: ((_ str: String) -> T)) throws -> Result<[T]> {
     do {
         let data = try String(contentsOfFile: from, encoding: .utf8)
         let lines = data.components(separatedBy: .newlines)
