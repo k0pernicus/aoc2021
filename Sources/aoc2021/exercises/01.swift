@@ -19,7 +19,7 @@ class Ex01: Exercise {
     private init() {
         let result = Exercises.shared.register(self.name)
         if result == .alreadyExists {
-            print("exercise with name \(self.name) already exists - cannot register...")
+            fatalError("exercise with name \(self.name) already exists - cannot register...")
         }
     }
     
