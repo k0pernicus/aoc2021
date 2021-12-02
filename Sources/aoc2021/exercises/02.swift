@@ -14,7 +14,9 @@ enum Direction: String {
     case forward = "forward"
 }
 
-func commandProcessor(command: String) -> (Direction, Int)? {
+typealias OpCode = (Direction, Int)
+
+func commandProcessor(command: String) -> OpCode? {
     if command.isEmpty {
         return nil
     }
@@ -30,8 +32,6 @@ func commandProcessor(command: String) -> (Direction, Int)? {
     }
     return (direction, number)
 }
-
-typealias OpCode = (Direction, Int)
 
 struct World {
     var x: Int = 0
@@ -73,10 +73,21 @@ struct World {
         }
     }
     
+    mutating func clear() {
+        self.x = 0
+        self.depth = 0
+        self.aim = 0
+    }
+    
+    func result() -> Int {
+        self.x * self.depth
+    }
+    
 }
 
 class Ex02: Exercise {
     var name: String = "02"
+    var world: World = World()
    
     typealias InputPart1 = [String]
     typealias InputPart2 = [String]
@@ -122,16 +133,16 @@ class Ex02: Exercise {
     
     internal func part1(value rawCodes: [String]) -> Result<Int> {
         let opCodes = rawCodes.map { commandProcessor(command: $0) }
-        var world = World()
-        world.process_part1(opCodes: opCodes.compactMap { $0 })
-        return .ok(abs(world.x * world.depth))
+        self.world.clear()
+        self.world.process_part1(opCodes: opCodes.compactMap { $0 })
+        return .ok(self.world.result())
     }
     
     internal func part2(value rawCodes: [String]) -> Result<Int> {
         let opCodes = rawCodes.map { commandProcessor(command: $0) }
-        var world = World()
-        world.process_part2(opCodes: opCodes.compactMap { $0 })
-        return .ok(abs(world.x * world.depth))
+        self.world.clear()
+        self.world.process_part2(opCodes: opCodes.compactMap { $0 })
+        return .ok(self.world.result())
     }
     
     public static let shared = Ex02()
