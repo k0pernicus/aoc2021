@@ -57,13 +57,10 @@ class Ex01: Exercise {
         if depths.count == 0 {
             return .ok(0)
         }
-        var previousMeasure: Int = depths[0]
-        var count = 0
-        for measure in depths[1...] {
-            if measure > previousMeasure {
+        let count = depths[1...].indices.reduce(into: 0) { count, index in
+            if depths[index] > depths[index - 1] {
                 count += 1
             }
-            previousMeasure = measure
         }
         return .ok(count)
     }
@@ -73,20 +70,12 @@ class Ex01: Exercise {
         if depths.count < slidingWindowLength {
             return .ok(0)
         }
-        var slidingWindow: [Int] = [depths[0], depths[1], depths[2]]
-        var previousMeasure = slidingWindow.reduce(0, +)
-        var count = 0
-        var slidingIndex = 0
-        for measure in depths[slidingWindowLength...] {
-            slidingWindow[slidingIndex % slidingWindowLength] = measure
-            slidingIndex += 1
-            let newMeasure = slidingWindow.reduce(0, +)
-            if newMeasure > previousMeasure {
-                count += 1
-            }
-            previousMeasure = newMeasure
+        let depths: [Int] = depths.indices.reduce(into: []) { slidingWindow, index in
+            guard (index + slidingWindowLength - 1) < depths.count else { return }
+            let window = depths[index...(index + slidingWindowLength - 1)]
+            slidingWindow.append(window.reduce(0, +))
         }
-        return .ok(count)
+        return self.part1(value: depths)
     }
     
     public static let shared = Ex01()

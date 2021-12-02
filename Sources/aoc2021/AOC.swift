@@ -26,6 +26,7 @@ struct App: ParsableCommand {
         // Such a shame that compile time arbitrary code
         // is not a priority in Swift... :/
         _ = Ex01.shared
+        _ = Ex02.shared
         
         if (printExercises) {
             let availableExercises = Exercises.shared.registered();
@@ -57,6 +58,9 @@ struct App: ParsableCommand {
         case Ex01.shared.name:
             print("Solution of part1: \(Ex01.shared.part1(from: file))")
             print("Solution of part2: \(Ex01.shared.part2(from: file))")
+        case Ex02.shared.name:
+            print("Solution of part1: \(Ex02.shared.part1(from: file))")
+            print("Solution of part2: \(Ex02.shared.part2(from: file))")
         default:
             print("Exercise not found, should not happen")
         }
