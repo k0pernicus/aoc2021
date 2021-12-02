@@ -38,6 +38,10 @@ struct World {
     var depth: Int = 0
     var aim: Int = 0
     
+    var result: Int {
+        return x * depth
+    }
+    
     mutating func process_part1(opCode: OpCode) {
         switch opCode.0 {
         case .up:
@@ -78,11 +82,6 @@ struct World {
         self.depth = 0
         self.aim = 0
     }
-    
-    func result() -> Int {
-        self.x * self.depth
-    }
-    
 }
 
 class Ex02: Exercise {
@@ -135,14 +134,14 @@ class Ex02: Exercise {
         let opCodes = rawCodes.map { commandProcessor(command: $0) }
         self.world.clear()
         self.world.process_part1(opCodes: opCodes.compactMap { $0 })
-        return .ok(self.world.result())
+        return .ok(self.world.result)
     }
     
     internal func part2(value rawCodes: [String]) -> Result<Int> {
         let opCodes = rawCodes.map { commandProcessor(command: $0) }
         self.world.clear()
         self.world.process_part2(opCodes: opCodes.compactMap { $0 })
-        return .ok(self.world.result())
+        return .ok(self.world.result)
     }
     
     public static let shared = Ex02()
