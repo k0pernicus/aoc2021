@@ -59,13 +59,9 @@ class Ex03: Exercise {
             return .ok(0)
         }
         var sumOfOne = Array.init(repeating: 0, count: report[0].count)
-        for reportLine in report {
-            for (index, char) in reportLine.enumerated() {
-                switch char {
-                case "0": break
-                case "1": sumOfOne[index] += 1
-                default: fatalError("found another character than '0' or '1'")
-                }
+        for line in report {
+            for (index, char) in line.enumerated() {
+                sumOfOne[index] += char == "1" ? 1 : 0
             }
         }
         let gammaRate = sumOfOne.map( { $0 > (nbOfLines / 2) ? "1" : "0" }).joined(separator:"")
@@ -85,8 +81,10 @@ class Ex03: Exercise {
         }
         var oxygenItems: Set<String> = Set(report)
         var co2Items: Set<String> = Set(report)
-        var index = 0
-        while (oxygenItems.count != 1 || co2Items.count != 1) {
+        for index in 0..<report[0].count {
+            if (oxygenItems.count == 1 && co2Items.count == 1) {
+                break
+            }
             // oxygen
             if oxygenItems.count != 1 {
                 let oxyOnes: Set<String> = oxygenItems.filter({ $0[index] == "1" })
@@ -99,7 +97,6 @@ class Ex03: Exercise {
                 let co2Zeros: Set<String> = co2Items.filter({ $0[index] == "0" })
                 co2Items = co2Items.intersection(co2Zeros.count <= co2Ones.count ? co2Zeros : co2Ones)
             }
-            index += 1
         }
         guard let oxygen = Int(oxygenItems.first ?? "", radix: 2) else {
             return .error("oxygen cannot be converted")
