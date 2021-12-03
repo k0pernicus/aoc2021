@@ -16,6 +16,30 @@ enum Result<T: Equatable>: Equatable {
     case error(String)
 }
 
+/// Extends String  with usefull methods for the project
+extension String {
+    /// Returns the character at index `i`, as a string
+    subscript (i: Int) -> String {
+        return self[i ..< i + 1]
+    }
+    /// Returns a range of characters based on `r`, the Range type passed as parameter
+    subscript (r: Range<Int>) -> String {
+        let range = Range(uncheckedBounds: (lower: max(0, min(count, r.lowerBound)),
+                                            upper: min(count, max(0, r.upperBound))))
+        let start = index(startIndex, offsetBy: range.lowerBound)
+        let end = index(start, offsetBy: range.upperBound - range.lowerBound)
+        return String(self[start ..< end])
+    }
+    /// Returns the substring of `Self` from `fromIndex` to the end of the string
+    func substring(fromIndex: Int) -> String {
+        return self[min(fromIndex, count) ..< count]
+    }
+    /// Returns the substring of `Self` from `0` to `toIndex`
+    func substring(toIndex: Int) -> String {
+        return self[0 ..< max(0, toIndex)]
+    }
+}
+
 /// Everything we need to implement a solution for an Advent of Code exercise
 protocol Exercise {
     /// The name of the exercise
@@ -83,6 +107,7 @@ class Exercises {
     }
 }
 
+/// Returns an array of generic type `T` from a file determined by `from`
 func getInput<T>(from: String, encodeFrom: ((_ str: String) -> T)) throws -> Result<[T]> {
     do {
         let data = try String(contentsOfFile: from, encoding: .utf8)
@@ -93,14 +118,17 @@ func getInput<T>(from: String, encodeFrom: ((_ str: String) -> T)) throws -> Res
     }
 }
 
+/// From String to Int
 func toInt(s: String) -> Int? {
     return Int(s)
 }
 
+/// From String to Float
 func toFloat(s: String) -> Float? {
     return Float(s)
 }
 
+/// From String to String
 func toString(s: String) -> String {
     return s
 }
