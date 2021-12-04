@@ -70,6 +70,12 @@ struct BingoBoard {
         }
     }
     
+    /// Returns the unchecked numbers in the current board, multiplied by the
+    /// last lottery number (passed as parameter)
+    func getResult(lotteryNumber: Int) -> Int {
+        lotteryNumber * (self.numbers.array as! [Int]).reduce(0, +)
+    }
+    
     /// Play a round
     mutating func round(number: Int) -> RoundResult {
         guard self.numbers.contains(number) else {
@@ -79,13 +85,13 @@ struct BingoBoard {
         // Check if one row won
         for (_, row) in self.rows {
             if row.allSatisfy({ !self.numbers.contains($0) }) {
-                return .won(number * (self.numbers.array as! [Int]).reduce(0, +))
+                return .won(self.getResult(lotteryNumber: number))
             }
         }
         // Check if one column won
         for (_, column) in self.columns {
             if column.allSatisfy({ !self.numbers.contains($0) }) {
-                return .won(number * (self.numbers.array as! [Int]).reduce(0, +))
+                return .won(self.getResult(lotteryNumber: number))
             }
         }
         return .noWin
