@@ -58,17 +58,17 @@ struct App: ParsableCommand {
         switch exercise {
             // TODO: Find a solution in order to register the name of the exercise *and* the exercise itself
         case Ex01.shared.name:
-            print("Solution of part1: \(Ex01.shared.part1(from: file))")
-            print("Solution of part2: \(Ex01.shared.part2(from: file))")
+            Ex01.shared.part1(from: file).unwrap(prefix: "Ex01,part1 ")
+            Ex01.shared.part1(from: file).unwrap(prefix: "Ex01,part2 ")
         case Ex02.shared.name:
-            print("Solution of part1: \(Ex02.shared.part1(from: file))")
-            print("Solution of part2: \(Ex02.shared.part2(from: file))")
+            Ex02.shared.part1(from: file).unwrap(prefix: "Ex02,part1 ")
+            Ex02.shared.part1(from: file).unwrap(prefix: "Ex02,part2 ")
         case Ex03.shared.name:
-            print("Solution of part1: \(Ex03.shared.part1(from: file))")
-            print("Solution of part2: \(Ex03.shared.part2(from: file))")
+            Ex03.shared.part1(from: file).unwrap(prefix: "Ex03,part1 ")
+            Ex03.shared.part1(from: file).unwrap(prefix: "Ex03,part2 ")
         case Ex04.shared.name:
-            print("Solution of part1: \(Ex04.shared.part1(from: file))")
-            print("Solution of part2: \(Ex04.shared.part2(from: file))")
+            Ex04.shared.part1(from: file).unwrap(prefix: "Ex04,part1 ")
+            Ex04.shared.part1(from: file).unwrap(prefix: "Ex04,part2 ")
         default:
             print("Exercise not found, should not happen")
         }

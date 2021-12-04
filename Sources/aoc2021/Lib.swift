@@ -14,6 +14,13 @@ enum Result<T: Equatable>: Equatable {
     /// Process resulted in an error, return it as a String
     // TODO: Replace the String type to another generic one?
     case error(String)
+    
+    func unwrap(prefix: String = "") {
+        switch self {
+        case .ok(let result): print("\(prefix)solution is \(result)")
+        case .error(let error): print("\(prefix)error: \(error)")
+        }
+    }
 }
 
 /// Extends String  with usefull methods for the project
