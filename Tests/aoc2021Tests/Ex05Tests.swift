@@ -34,6 +34,27 @@ final class Ex05Tests: XCTestCase {
         XCTAssert(board.board.keys.count == 10)
     }
     
+    func testVentSegment() throws {
+        let tests = ["", " ", " -> ", "0,0 -> ", "-> 0,1"]
+        for test in tests {
+            guard VentSegment(line: test) == nil else {
+                XCTFail("Parsing \(test) was fine, should fail")
+                continue
+            }
+            continue
+        }
+        let segment = VentSegment(line: "0,1 -> 2,3")
+        if segment == nil {
+            XCTFail("Failed to parse a valid string")
+        }
+        if segment?.from.0 != 0 || segment?.from.1 != 1 {
+            XCTFail("'from' from valid string should be (0,1), got \(segment!.from)")
+        }
+        if segment?.to.0 != 2 || segment?.to.1 != 3 {
+            XCTFail("'from' from valid string should be (2,3), got \(segment!.to)")
+        }
+    }
+    
     func testVentColumn() throws {
         XCTAssert(ventColumn(VentSegment(line: "0,0 -> 0,9")!) == nil)
         XCTAssert(ventColumn(VentSegment(line: "0,0 -> 1,9")!) == nil)
