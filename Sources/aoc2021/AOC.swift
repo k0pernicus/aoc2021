@@ -29,6 +29,7 @@ struct App: ParsableCommand {
         _ = Ex02.shared
         _ = Ex03.shared
         _ = Ex04.shared
+        _ = Ex05.shared
         
         if (printExercises) {
             let availableExercises = Exercises.shared.registered();
@@ -59,16 +60,19 @@ struct App: ParsableCommand {
             // TODO: Find a solution in order to register the name of the exercise *and* the exercise itself
         case Ex01.shared.name:
             Ex01.shared.part1(from: file).unwrap(prefix: "Ex01,part1 ")
-            Ex01.shared.part1(from: file).unwrap(prefix: "Ex01,part2 ")
+            Ex01.shared.part2(from: file).unwrap(prefix: "Ex01,part2 ")
         case Ex02.shared.name:
             Ex02.shared.part1(from: file).unwrap(prefix: "Ex02,part1 ")
-            Ex02.shared.part1(from: file).unwrap(prefix: "Ex02,part2 ")
+            Ex02.shared.part2(from: file).unwrap(prefix: "Ex02,part2 ")
         case Ex03.shared.name:
             Ex03.shared.part1(from: file).unwrap(prefix: "Ex03,part1 ")
-            Ex03.shared.part1(from: file).unwrap(prefix: "Ex03,part2 ")
+            Ex03.shared.part2(from: file).unwrap(prefix: "Ex03,part2 ")
         case Ex04.shared.name:
             Ex04.shared.part1(from: file).unwrap(prefix: "Ex04,part1 ")
-            Ex04.shared.part1(from: file).unwrap(prefix: "Ex04,part2 ")
+            Ex04.shared.part2(from: file).unwrap(prefix: "Ex04,part2 ")
+        case Ex05.shared.name:
+            Ex05.shared.part1(from: file).unwrap(prefix: "Ex05,part1 ")
+            Ex05.shared.part2(from: file).unwrap(prefix: "Ex05,part2 ")
         default:
             print("Exercise not found, should not happen")
         }
