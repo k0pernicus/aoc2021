@@ -11,11 +11,11 @@ import XCTest
 typealias Vent = (Int, Int)
 
 func ventColumn(_ segment: VentSegment) -> [Vent]? {
-    if segment.from.0 != segment.to.0 {
+    if segment.from.1 != segment.to.1 {
         return nil
     }
-    let (ymin, ymax) = segment.from.1 < segment.to.1 ? (segment.from.1, segment.to.1) : (segment.to.1, segment.from.1)
-    return (ymin...ymax).map({ (segment.from.0, $0) })
+    let (xmin, xmax) = segment.from.0 < segment.to.0 ? (segment.from.0, segment.to.0) : (segment.to.0, segment.from.0)
+    return (xmin...xmax).map({ ($0, segment.from.1) })
 }
 
 func ventDiagonal(_ segment: VentSegment) -> [Vent]? {
@@ -29,11 +29,11 @@ func ventDiagonal(_ segment: VentSegment) -> [Vent]? {
 }
 
 func ventRow(_ segment: VentSegment) -> [Vent]? {
-    if segment.from.1 != segment.to.1 {
+    if segment.from.0 != segment.to.0 {
         return nil
     }
-    let (xmin, xmax) = segment.from.0 < segment.to.0 ? (segment.from.0, segment.to.0) : (segment.to.0, segment.from.0)
-    return (xmin...xmax).map({ ($0, segment.from.1) })
+    let (ymin, ymax) = segment.from.1 < segment.to.1 ? (segment.from.1, segment.to.1) : (segment.to.1, segment.from.1)
+    return (ymin...ymax).map({ (segment.from.0, $0) })
 }
 
 enum VentValidator {

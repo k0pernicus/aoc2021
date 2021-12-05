@@ -34,6 +34,37 @@ final class Ex05Tests: XCTestCase {
         XCTAssert(board.board.keys.count == 10)
     }
     
+    func testVentColumn() throws {
+        XCTAssert(ventColumn(VentSegment(line: "0,0 -> 0,9")!) == nil)
+        XCTAssert(ventColumn(VentSegment(line: "0,0 -> 1,9")!) == nil)
+        let vents: [Vent]? = ventColumn(VentSegment(line: "0,0 -> 1,0")!)
+        XCTAssert(vents != nil)
+        XCTAssert(vents!.count == 2)
+        XCTAssert(vents![0] == (0,0))
+        XCTAssert(vents![1] == (1,0))
+    }
+    
+    func testVentRow() throws {
+        XCTAssert(ventRow(VentSegment(line: "0,0 -> 9,0")!) == nil)
+        XCTAssert(ventRow(VentSegment(line: "0,0 -> 1,9")!) == nil)
+        let vents: [Vent]? = ventRow(VentSegment(line: "0,0 -> 0,1")!)
+        XCTAssert(vents != nil)
+        XCTAssert(vents!.count == 2)
+        XCTAssert(vents![0] == (0,0))
+        XCTAssert(vents![1] == (0,1))
+    }
+    
+    func testVentDiagonal() throws {
+        XCTAssert(ventDiagonal(VentSegment(line: "0,0 -> 9,0")!) == nil)
+        XCTAssert(ventDiagonal(VentSegment(line: "0,0 -> 1,9")!) == nil)
+        let vents: [Vent]? = ventDiagonal(VentSegment(line: "0,0 -> 2,2")!)
+        XCTAssert(vents != nil)
+        XCTAssert(vents!.count == 3)
+        XCTAssert(vents![0] == (0,0))
+        XCTAssert(vents![1] == (1,1))
+        XCTAssert(vents![2] == (2,2))
+    }
+    
     func testPart1() throws {
         let toFind: Int = 5
         
