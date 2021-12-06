@@ -6,6 +6,7 @@
 //
 
 import ArgumentParser
+import Foundation
 
 @main
 struct App: ParsableCommand {
@@ -25,11 +26,16 @@ struct App: ParsableCommand {
     mutating func run() throws {
         // Such a shame that compile time arbitrary code
         // is not a priority in Swift... :/
-        _ = Ex01.shared
-        _ = Ex02.shared
-        _ = Ex03.shared
-        _ = Ex04.shared
-        _ = Ex05.shared
+        for ex in [
+            Ex01.shared,
+            Ex02.shared,
+            Ex03.shared,
+            Ex04.shared,
+            Ex05.shared,
+            Ex06.shared
+        ] as [Any] {
+            _ = ex
+        }
         
         if (printExercises) {
             let availableExercises = Exercises.shared.registered();
@@ -59,20 +65,23 @@ struct App: ParsableCommand {
         switch exercise {
             // TODO: Find a solution in order to register the name of the exercise *and* the exercise itself
         case Ex01.shared.name:
-            Ex01.shared.part1(from: file).unwrap(prefix: "Ex01,part1 ")
-            Ex01.shared.part2(from: file).unwrap(prefix: "Ex01,part2 ")
+            Ex01.shared.part1(from: file).unwrap(prefix: "Ex\(exercise!),part1 ")
+            Ex01.shared.part2(from: file).unwrap(prefix: "Ex\(exercise!),part2 ")
         case Ex02.shared.name:
-            Ex02.shared.part1(from: file).unwrap(prefix: "Ex02,part1 ")
-            Ex02.shared.part2(from: file).unwrap(prefix: "Ex02,part2 ")
+            Ex02.shared.part1(from: file).unwrap(prefix: "Ex\(exercise!),part1 ")
+            Ex02.shared.part2(from: file).unwrap(prefix: "Ex\(exercise!),part2 ")
         case Ex03.shared.name:
-            Ex03.shared.part1(from: file).unwrap(prefix: "Ex03,part1 ")
-            Ex03.shared.part2(from: file).unwrap(prefix: "Ex03,part2 ")
+            Ex03.shared.part1(from: file).unwrap(prefix: "Ex\(exercise!),part1 ")
+            Ex03.shared.part2(from: file).unwrap(prefix: "Ex\(exercise!),part2 ")
         case Ex04.shared.name:
-            Ex04.shared.part1(from: file).unwrap(prefix: "Ex04,part1 ")
-            Ex04.shared.part2(from: file).unwrap(prefix: "Ex04,part2 ")
+            Ex04.shared.part1(from: file).unwrap(prefix: "Ex\(exercise!),part1 ")
+            Ex04.shared.part2(from: file).unwrap(prefix: "Ex\(exercise!),part2 ")
         case Ex05.shared.name:
-            Ex05.shared.part1(from: file).unwrap(prefix: "Ex05,part1 ")
-            Ex05.shared.part2(from: file).unwrap(prefix: "Ex05,part2 ")
+            Ex05.shared.part1(from: file).unwrap(prefix: "Ex\(exercise!),part1 ")
+            Ex05.shared.part2(from: file).unwrap(prefix: "Ex\(exercise!),part2 ")
+        case Ex06.shared.name:
+            Ex06.shared.part1(from: file).unwrap(prefix: "Ex\(exercise!),part1 ")
+            Ex06.shared.part2(from: file).unwrap(prefix: "Ex\(exercise!),part2 ")
         default:
             print("Exercise not found, should not happen")
         }
