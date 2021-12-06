@@ -25,7 +25,7 @@ class Ex06: Exercise {
     
     internal func part1(from: String) -> Result<Int> {
         do {
-            let result: Result<[String]> = try getInput(from: from, encodeFrom: toString)
+            let result: Result<[String]> = try getInput(from: from)
             switch result {
             case .ok(let input):
                 return self.part1(value: input[0])
@@ -40,7 +40,7 @@ class Ex06: Exercise {
     
     internal func part2(from: String) -> Result<Int> {
         do {
-            let result: Result<[String]> = try getInput(from: from, encodeFrom: toString)
+            let result: Result<[String]> = try getInput(from: from)
             switch result {
             case .ok(let input):
                 return self.part2(value: input[0])

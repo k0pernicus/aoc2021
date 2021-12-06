@@ -115,11 +115,22 @@ class Exercises {
 }
 
 /// Returns an array of generic type `T` from a file determined by `from`
-func getInput<T>(from: String, encodeFrom: ((_ str: String) -> T)) throws -> Result<[T]> {
+func getInput<T>(from: String, encodeTo: ((_ str: String) -> T)) throws -> Result<[T]> {
     do {
         let data = try String(contentsOfFile: from, encoding: .utf8)
         let lines = data.components(separatedBy: .newlines)
-        return .ok(lines.map { encodeFrom($0) })
+        return .ok(lines.map { encodeTo($0) })
+    } catch {
+        return .error("\(error)")
+    }
+}
+
+/// Returns an array of String from a file determined by `from`
+func getInput(from: String) throws -> Result<[String]> {
+    do {
+        let data = try String(contentsOfFile: from, encoding: .utf8)
+        let lines = data.components(separatedBy: .newlines)
+        return .ok(lines)
     } catch {
         return .error("\(error)")
     }
@@ -133,9 +144,4 @@ func toInt(s: String) -> Int? {
 /// From String to Float
 func toFloat(s: String) -> Float? {
     return Float(s)
-}
-
-/// From String to String
-func toString(s: String) -> String {
-    return s
 }

@@ -25,7 +25,7 @@ class Ex01: Exercise {
     
     internal func part1(from: String) -> Result<Int> {
         do {
-            let input: Result<[Int?]> = try getInput(from: from, encodeFrom: toInt)
+            let input: Result<[Int?]> = try getInput(from: from, encodeTo: toInt)
             switch input {
             case .ok(let anyDepths):
                 return self.part1(value: anyDepths.compactMap{ $0 })
@@ -40,7 +40,7 @@ class Ex01: Exercise {
     
     internal func part2(from: String) -> Result<Int> {
         do {
-            let input: Result<[Int?]> = try getInput(from: from, encodeFrom: toInt)
+            let input: Result<[Int?]> = try getInput(from: from, encodeTo: toInt)
             switch input {
             case .ok(let anyDepths):
                 return self.part2(value: anyDepths.compactMap{ $0 })

@@ -32,7 +32,8 @@ struct App: ParsableCommand {
             Ex03.shared,
             Ex04.shared,
             Ex05.shared,
-            Ex06.shared
+            Ex06.shared,
+            Ex07.shared
         ] as [Any] {
             _ = ex
         }
@@ -62,6 +63,11 @@ struct App: ParsableCommand {
         
         let file = getInputFile(exerciseName: exerciseName, inputFile: inputFile)
         
+        if !FileManager.default.fileExists(atPath: file) {
+            print("Input \(file) does not exist")
+            return
+        }
+        
         switch exercise {
             // TODO: Find a solution in order to register the name of the exercise *and* the exercise itself
         case Ex01.shared.name:
@@ -82,6 +88,9 @@ struct App: ParsableCommand {
         case Ex06.shared.name:
             Ex06.shared.part1(from: file).unwrap(prefix: "Ex\(exercise!),part1 ")
             Ex06.shared.part2(from: file).unwrap(prefix: "Ex\(exercise!),part2 ")
+        case Ex07.shared.name:
+            Ex07.shared.part1(from: file).unwrap(prefix: "Ex\(exercise!),part1 ")
+            Ex07.shared.part2(from: file).unwrap(prefix: "Ex\(exercise!),part2 ")
         default:
             print("Exercise not found, should not happen")
         }
