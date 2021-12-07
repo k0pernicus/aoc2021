@@ -72,10 +72,10 @@ class Ex07: Exercise {
     
     internal func part2(value input: String) -> Result<Int> {
         let crabs: [Int] = input.split(separator: ",").reduce(into: [], { accumulator, position in accumulator.append(Int(position)!) })
-        let middle = Int(round(Double(crabs.reduce(0, +)) / Double(crabs.count)))
+        let mean = Int(round(Double(crabs.reduce(0, +)) / Double(crabs.count)))
         var minFuel: Int? = nil
-        // Range around the middle value... or find the median?
-        for cPosition in middle-1...middle+1 {
+        // Range around the mean value to find the optimum... -1 / +1 should be enough for most cases
+        for cPosition in mean-1...mean+1 {
             let cSum = crabs.map { (0...abs($0 - cPosition)).reduce(0, +) }.reduce(0, +)
             if minFuel == nil || cSum < minFuel! { minFuel = cSum }
         }
