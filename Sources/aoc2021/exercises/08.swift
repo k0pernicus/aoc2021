@@ -54,7 +54,7 @@ class Ex08: Exercise {
     }
     
     internal func part1(value input: [String]) -> Result<Int> {
-        let uniqueNumbersSegments: Set<Int> = [1, 4, 7, 8]
+        let uniqueNumbersSegments: Set<Int> = [2, 3, 4, 7]
         var sum = 0
         for line in input {
             let data = line.split(separator: "|")
@@ -90,12 +90,12 @@ class Ex08: Exercise {
                 }
             }
             for fiveLengthNumber in fiveLengthNumbers {
-                if (fiveLengthNumber.intersection(digitsMapping[1]!)).count == 1 && (fiveLengthNumber.intersection(digitsMapping[4]!).count == 2) {
-                    digitsMapping[2] = fiveLengthNumber
+                if (fiveLengthNumber.intersection(digitsMapping[1]!).count == 2) {
+                    digitsMapping[3] = fiveLengthNumber
                     continue
                 }
-                if (fiveLengthNumber.intersection(digitsMapping[7]!)).count == 3 {
-                    digitsMapping[3] = fiveLengthNumber
+                if (fiveLengthNumber.intersection(digitsMapping[4]!).count == 2) {
+                    digitsMapping[2] = fiveLengthNumber
                     continue
                 }
                 digitsMapping[5] = fiveLengthNumber
