@@ -36,6 +36,7 @@ struct App: ParsableCommand {
             Ex07.shared,
             Ex08.shared,
             Ex09.shared,
+            Ex10.shared,
         ] as [Any] {
             _ = ex
         }
@@ -99,6 +100,9 @@ struct App: ParsableCommand {
         case Ex09.shared.name:
             Ex09.shared.part1(from: file).unwrap(prefix: "Ex\(exercise!),part1 ")
             Ex09.shared.part2(from: file).unwrap(prefix: "Ex\(exercise!),part2 ")
+        case Ex10.shared.name:
+            Ex10.shared.part1(from: file).unwrap(prefix: "Ex\(exercise!),part1 ")
+            Ex10.shared.part2(from: file).unwrap(prefix: "Ex\(exercise!),part2 ")
         default:
             print("Exercise not found, should not happen")
         }
