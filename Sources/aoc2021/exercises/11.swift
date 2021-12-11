@@ -8,22 +8,6 @@
 import Foundation
 import XCTest
 
-func findFullAdjacentPositions(cPosition: (Int, Int), maxX: Int, maxY: Int) -> [(Int, Int)] {
-    let (x, y) = cPosition
-    let adjacentPositions: [(Int?, Int?)] = [
-        (x == 0 ? nil : x - 1, y),
-        (x == maxX ? nil : x + 1, y),
-        (x, y == 0 ? nil : y - 1),
-        (x, y == maxY ? nil : y + 1),
-        (x == 0 ? nil : x - 1, y == 0 ? nil : y - 1),
-        (x == maxX ? nil : x + 1, y == maxY ? nil : y + 1),
-        (x == 0 ? nil : x - 1, y == maxY ? nil : y + 1),
-        (x == maxX ? nil : x + 1, y == 0 ? nil : y - 1)
-    ]
-    let adjacentHeights: [(Int, Int)?] = adjacentPositions.map({ ($0.0 == nil || $0.1 == nil) ? nil : ($0.0!, $0.1!) })
-    return adjacentHeights.compactMap({ $0 })
-}
-
 struct Grid {
     
     var energyLevels: [[Int]]
