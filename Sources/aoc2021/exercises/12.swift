@@ -30,12 +30,19 @@ enum Cave: Hashable {
         }
     }
     
-    func canBeVisited() -> Int? {
+    // TODO: Pass the default value for .small as parameter
+    func canBeVisited(defaultSmallValue: Int = 1) -> Int? {
         switch self {
-        case startRoute: return 1
-        case endRoute: return 1
-        case .small : return 1
+        case startRoute, endRoute: return 1
+        case .small: return defaultSmallValue
         case .big: return nil
+        }
+    }
+    
+    func isBig() -> Bool {
+        switch self {
+        case startRoute, endRoute, .small: return false
+        default: return true
         }
     }
 }
@@ -48,10 +55,11 @@ struct Map {
         for route in input {
             let mapper = route.split(separator: "-")
             if mapper.count != 2 {
-                print("route \(route) has no two destinations, should not happen...")
                 continue
             }
             let (from, to): (Cave, Cave) = (Cave(name: mapper[0]), Cave(name: mapper[1]))
+            // Obliged to do the X <-> Y stuff as the input
+            // is not directed...
             var toArray = routesMapper[from] ?? []
             toArray.append(to)
             routesMapper.updateValue(toArray, forKey: from)
@@ -62,39 +70,58 @@ struct Map {
         self.routesMapper = routesMapper
     }
     
-    func printD() -> Void {
-        for (key, values) in self.routesMapper {
-            for value in values {
-                print("\(key) -> \(value)")
-            }
-        }
-    }
-    
-    func route(from: Cave, to: Cave, visited: Set<Cave>, routes: [Cave], count: inout Int) {
-        var newRoutes = routes
-        newRoutes.append(from)
-        if (to == endRoute) {
-            count += 1
-            return
-        }
+    /// Recursive function to find all paths here
+    func traverse(from: Cave, to: Cave, visited: Set<Cave>, count: inout Int) {
+        if (to == endRoute) { count += 1; return }
         if visited.contains(from) && from.canBeVisited() ?? 0 == 1 { return }
         var newVisited = visited
         newVisited.insert(from)
         (self.routesMapper[to] ?? [])
             .filter { cave in !newVisited.contains(cave) || cave.canBeVisited() == nil }
             .forEach{ destination in
-                return self.route(from: to, to: destination, visited: newVisited, routes: newRoutes, count: &count)
+                return self.traverse(from: to, to: destination, visited: newVisited, count: &count)
             }
     }
     
-    func findNbRoutes() -> Int {
+    /// Recursive function to find all paths here
+    func traverseLoop(from: Cave, to: Cave, visited: [Cave: Int], count: inout Int) {
+        // Only one small can be visited twice - check this before
+        if !from.isBig() {
+            // Check if at least one small value has been visited twice
+            let smallVisited = visited.filter({ !$0.0.isBig() }).values.contains(2)
+            // Stop if the current node has been visited already
+            if visited[from] != nil && smallVisited && visited[from]! >= 1 { return }
+        }
+        if (to == endRoute) { count += 1; return }
+        var newVisited = visited
+        newVisited.updateValue((visited[from] ?? 0) + 1, forKey: from)
+        (self.routesMapper[to] ?? [])
+            .filter { cave in newVisited[cave] == nil || cave.canBeVisited() == nil || newVisited[cave]! < cave.canBeVisited(defaultSmallValue: 2)! }
+            .forEach{ destination in
+                return self.traverseLoop(from: to, to: destination, visited: newVisited, count: &count)
+            }
+    }
+    
+    func findNbRoutesNoLoop() -> Int {
         if self.routesMapper[startRoute]?.count == 0 {
             return 0
         }
         var count = 0
         for destination in self.routesMapper[startRoute] ?? [] {
             let visited: Set<Cave> = []
-            route(from: startRoute, to: destination, visited: visited, routes: [], count: &count)
+            traverse(from: startRoute, to: destination, visited: visited, count: &count)
+        }
+        return count
+    }
+    
+    func findNbRoutesWithOneLoop() -> Int {
+        if self.routesMapper[startRoute]?.count == 0 {
+            return 0
+        }
+        var count = 0
+        for destination in self.routesMapper[startRoute] ?? [] {
+            let visited: [Cave: Int] = [:]
+            traverseLoop(from: startRoute, to: destination, visited: visited, count: &count)
         }
         return count
     }
@@ -147,12 +174,14 @@ class Ex12: Exercise {
     
     internal func part1(value input: [String]) -> Result<Int> {
         let map = Map(input: input)
-        let nbRoutes = map.findNbRoutes()
+        let nbRoutes = map.findNbRoutesNoLoop()
         return .ok(nbRoutes)
     }
     
     internal func part2(value input: [String]) -> Result<Int> {
-        return .ok(0)
+        let map = Map(input: input)
+        let nbRoutes = map.findNbRoutesWithOneLoop()
+        return .ok(nbRoutes)
     }
     
     public static let shared = Ex12()
