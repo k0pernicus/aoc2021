@@ -28,3 +28,9 @@ extension String {
         return self[0 ..< max(0, toIndex)]
     }
 }
+
+extension StringProtocol {
+    var isLowercase: Bool {
+        return self == self.lowercased()
+    }
+}
