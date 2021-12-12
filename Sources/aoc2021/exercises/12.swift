@@ -31,7 +31,7 @@ enum Cave: Hashable {
     }
     
     // TODO: Pass the default value for .small as parameter
-    func canBeVisited(defaultSmallValue: Int = 1) -> Int? {
+    func maxVisits(defaultSmallValue: Int = 1) -> Int? {
         switch self {
         case startRoute, endRoute: return 1
         case .small: return defaultSmallValue
@@ -73,11 +73,11 @@ struct Map {
     /// Recursive function to find all paths here
     func traverse(from: Cave, to: Cave, visited: Set<Cave>, count: inout Int) {
         if (to == endRoute) { count += 1; return }
-        if visited.contains(from) && from.canBeVisited() ?? 0 == 1 { return }
+        if visited.contains(from) && from.maxVisits() ?? 0 == 1 { return }
         var newVisited = visited
         newVisited.insert(from)
         (self.routesMapper[to] ?? [])
-            .filter { cave in !newVisited.contains(cave) || cave.canBeVisited() == nil }
+            .filter { cave in !newVisited.contains(cave) || cave.maxVisits() == nil }
             .forEach{ destination in
                 return self.traverse(from: to, to: destination, visited: newVisited, count: &count)
             }
@@ -96,7 +96,7 @@ struct Map {
         var newVisited = visited
         newVisited.updateValue((visited[from] ?? 0) + 1, forKey: from)
         (self.routesMapper[to] ?? [])
-            .filter { cave in newVisited[cave] == nil || cave.canBeVisited() == nil || newVisited[cave]! < cave.canBeVisited(defaultSmallValue: 2)! }
+            .filter { cave in newVisited[cave] == nil || cave.maxVisits() == nil || newVisited[cave]! < cave.maxVisits(defaultSmallValue: 2)! }
             .forEach{ destination in
                 return self.traverseLoop(from: to, to: destination, visited: newVisited, count: &count)
             }
