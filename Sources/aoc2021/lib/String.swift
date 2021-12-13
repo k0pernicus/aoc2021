@@ -27,6 +27,10 @@ extension String {
     func substring(toIndex: Int) -> String {
         return self[0 ..< max(0, toIndex)]
     }
+    func deletingPrefix(_ prefix: String) -> String {
+        guard self.hasPrefix(prefix) else { return self }
+        return String(self.dropFirst(prefix.count))
+    }
 }
 
 extension StringProtocol {
