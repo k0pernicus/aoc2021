@@ -12,7 +12,7 @@ struct Origami{
 
     enum Case: String, CustomStringConvertible  {
         case marked = "#"
-        case unmarked = "."
+        case unmarked = " "
         
         var description: String {
             get {
@@ -88,13 +88,13 @@ struct Origami{
                 return
             }
             boardA = lastBoard.prefix(splitIndex).map { $0 }
-            boardB = lastBoard.suffix(splitIndex).reversed()
+            boardB = lastBoard.reversed().prefix(splitIndex).map { $0 }
         case .vertical(let splitIndex):
             if splitIndex >= maxX {
                 return
             }
             boardA = lastBoard.map { line in line.prefix(splitIndex).map { $0 } }
-            boardB = lastBoard.map { line in line.suffix(splitIndex).reversed() }
+            boardB = lastBoard.map { line in line.reversed().prefix(splitIndex).map{ $0 } }
         }
         for (y, line) in boardB.enumerated() {
             for (x, element) in line.enumerated() {
@@ -232,8 +232,7 @@ class Ex13: Exercise {
         // Prepare the fold
         data
             .filter { $0.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 && $0.hasPrefix("fold") }
-            .forEach({ fold in origami.fold(along: Origami.Fold(s: fold)!) })
-        
+            .forEach({ fold in origami.fold(along: Origami.Fold(s: fold)!); origami.printDebug() })
         origami.printDebug()
         return .ok(0)
     }
