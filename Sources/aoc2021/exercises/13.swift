@@ -232,7 +232,7 @@ class Ex13: Exercise {
         // Prepare the fold
         data
             .filter { $0.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 && $0.hasPrefix("fold") }
-            .forEach({ fold in origami.fold(along: Origami.Fold(s: fold)!); origami.printDebug() })
+            .forEach({ fold in origami.fold(along: Origami.Fold(s: fold)!) })
         origami.printDebug()
         return .ok(0)
     }
