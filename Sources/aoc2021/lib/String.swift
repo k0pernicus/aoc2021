@@ -31,6 +31,10 @@ extension String {
         guard self.hasPrefix(prefix) else { return self }
         return String(self.dropFirst(prefix.count))
     }
+    func group(every length:Int) -> [String] {
+        guard length > 0 && length < self.count else { return [String(suffix(from:startIndex))] }
+        return (0...(self.count - length)).enumerated().map { index, s in String(self[index..<length + index]) }
+    }
 }
 
 extension StringProtocol {
