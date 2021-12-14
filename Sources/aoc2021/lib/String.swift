@@ -27,10 +27,13 @@ extension String {
     func substring(toIndex: Int) -> String {
         return self[0 ..< max(0, toIndex)]
     }
+    /// Returns the string without the prefix passed as parameter
     func deletingPrefix(_ prefix: String) -> String {
         guard self.hasPrefix(prefix) else { return self }
         return String(self.dropFirst(prefix.count))
     }
+    /// Group characters one by one with a length of `every`
+    /// Example: `"abcd".group(2)` return `["ab", "bc", "cd"]`
     func group(every length:Int) -> [String] {
         guard length > 0 && length < self.count else { return [String(suffix(from:startIndex))] }
         return (0...(self.count - length)).enumerated().map { index, s in String(self[index..<length + index]) }
