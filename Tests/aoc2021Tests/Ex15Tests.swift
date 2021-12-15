@@ -23,7 +23,7 @@ final class Ex15Tests: XCTestCase {
     ]
     
     func testPart1() throws {
-        let toFind: Int = 39
+        let toFind: Int = 40
         
         switch Ex15.shared.part1(value: inputTest) {
         case .ok(let count):
@@ -35,7 +35,7 @@ final class Ex15Tests: XCTestCase {
     }
     
     func testPart2() throws {
-        let toFind: Int = 315
+        let toFind: Int = 307
 
         switch Ex15.shared.part2(value: inputTest) {
         case .ok(let count):
