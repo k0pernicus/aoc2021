@@ -58,5 +58,18 @@ struct Point: Hashable {
         self.x = position.0
         self.y = position.1
     }
+    
+    init?(fromString: String) {
+        let s = fromString.split(separator: ",")
+        if s.count != 2 {
+            return nil
+        }
+        self.x = Int(s[0])!
+        self.y = Int(s[1])!
+    }
+    
+    func String() -> String {
+        return "\(self.x),\(self.y)"
+    }
 }
 
