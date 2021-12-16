@@ -89,7 +89,7 @@ private func parseOperator(rawOperator packet: String) -> ([Packet], String) {
         let lengthSubPackets = remainingPacket.take(15)
         var remainingBits = remainingPacket.take(Int(lengthSubPackets, radix: 2)!)
         while remainingBits.count > 0 {
-            let (packet, rem) = process(rawPacket: remainingBits)
+            let (packet, rem) = createPacket(rawPacket: remainingBits)
             if (packet == nil) {
                 fatalError("packet is nil")
             }
@@ -99,7 +99,7 @@ private func parseOperator(rawOperator packet: String) -> ([Packet], String) {
     case "1":
         let nbPackets = Int(remainingPacket.take(11), radix: 2)!
         while packets.count < nbPackets {
-            let (packet, rem) = process(rawPacket: remainingPacket)
+            let (packet, rem) = createPacket(rawPacket: remainingPacket)
             if (packet == nil) {
                 fatalError("packet is nil")
             }
@@ -113,7 +113,7 @@ private func parseOperator(rawOperator packet: String) -> ([Packet], String) {
 
 /// Returns a packet (if the `rawPacket` parameter is valid) or `nil`, and the remaining
 /// raw packet (value not taken) that was not necessary / used to format the returned packet
-private func process(rawPacket: String) -> (Packet?, String) {
+private func createPacket(rawPacket: String) -> (Packet?, String) {
     var rawPacket = rawPacket
     if rawPacket.count < 6 {
         return (nil, "")
@@ -151,7 +151,7 @@ struct Transmission {
             if self.message.allSatisfy({ character in character == "0"}) {
                 break
             }
-            let (newPacket, remainingHex) = aoc2021.process(rawPacket: self.message)
+            let (newPacket, remainingHex) = createPacket(rawPacket: self.message)
             if newPacket == nil {
                 fatalError("The message \(self.message) did not format a correct packet")
             }
