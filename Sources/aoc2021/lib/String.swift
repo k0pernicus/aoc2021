@@ -32,6 +32,12 @@ extension String {
         guard self.hasPrefix(prefix) else { return self }
         return String(self.dropFirst(prefix.count))
     }
+    mutating func take(_ length: Int) -> String {
+        let length = length > self.count ? self.count : length
+        let prefix = self[0 ..< max(0, length)]
+        self = String(self.dropFirst(length))
+        return prefix
+    }
     /// Group characters one by one with a length of `every`
     /// Example: `"abcd".group(2)` return `["ab", "bc", "cd"]`
     func group(every length:Int) -> [String] {
