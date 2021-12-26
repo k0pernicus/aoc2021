@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "CartesianProduct",
+        "repositoryURL": "https://github.com/felginep/CartesianProduct.git",
+        "state": {
+          "branch": null,
+          "revision": "81d1e2b9ce0d73339c2487bbe327eec57a8f942d",
+          "version": "0.0.1"
+        }
+      },
+      {
         "package": "swift-argument-parser",
         "repositoryURL": "https://github.com/apple/swift-argument-parser",
         "state": {
