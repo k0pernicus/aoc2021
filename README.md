@@ -8,6 +8,17 @@ If you are using another operating system and found some
 platform issues, do not hesitate to fill an issue, or propose
 a modification.
 
+This project does not attempts to propose the best architecture
+for a Swift project at all, but an attempt to "just solve" aoc exercises.  
+You can propose changes as well to update the architecture, use
+a more the standard library (the lack of "good" documentation for Swift
+was my main nightmare for this project), etc.
+
+**Personal note**
+After spending time on this, I don't think I will try to solve aoc 
+in Swift again.  
+I will maybe come back to Rust, or switch to Zig.
+
 ## Build
 
 In this repository: `swift build`.  
