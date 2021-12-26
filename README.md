@@ -17,6 +17,9 @@ was my main nightmare for this project), etc.
 **Personal note**
 After spending time on this, I don't think I will try to solve aoc 
 in Swift again.  
+Swift was fun but the lack of good documentation, Xcode mistakes,
+an immature standard library (coming from Rust), 
+Swift compiler "dumb" bugs, ... disappointed me a lot.  
 I will maybe come back to Rust, or switch to Zig.
 
 ## Build
